@@ -22,7 +22,7 @@ def split_point(data1, yvals, minleaf):
     if len(u) == 1:
         return serr, u[0]
     if len(u) <= minleaf:
-        for ju in xrange(len(u) - 1):
+        for ju in range(len(u) - 1):
             win = where(data1 == u[ju])[0][-1]
             nin = win + 1
             nsplit = nin
@@ -35,7 +35,7 @@ def split_point(data1, yvals, minleaf):
     nin = 1
     nsplit = nin
     ntimes = Ntot - 2 * minleaf + 1
-    for i in xrange(ntimes):
+    for i in range(ntimes):
         stemp = var(yvals[0:nin]) * nin + var(yvals[nin:]) * (Ntot - nin)
         if stemp < serr:
             serr = stemp
@@ -52,7 +52,7 @@ def best_split(data_split, y_split, minleaf):
     Ndim = shape(data_split)[1]
     Sall = zeros(Ndim)
     vall = zeros(Ndim)
-    for i in xrange(Ndim):
+    for i in range(Ndim):
         values = data_split[:, i]
         Ssplit, vsplit = split_point(values, y_split, minleaf)
         Sall[i] = Ssplit
@@ -69,7 +69,7 @@ def I_d(y_vals, impurity, nclass):
     """
     tot = len(y_vals) * 1.
     if tot == 0.:
-        print 'ERROR'
+        print ('ERROR')
         return -1.
     Idd = 0.
     if impurity == 'gini': Idd = 1.
@@ -115,7 +115,7 @@ def gain(vals_x, vals_y, minleaf, impurity, nclass):
     nin = 1
     nsplit = nin
     ntimes = int(tot - 2 * minleaf + 1)
-    for i in xrange(ntimes):
+    for i in range(ntimes):
         nout = 1. * (tot - nin)
         IGtemp = IG - 1. * nin / (1. * tot) * I_d(vals_y[0:nin], impurity, nclass) - 1. * nout / (1. * tot) * I_d(
             vals_y[nin:], impurity, nclass)
@@ -131,7 +131,7 @@ def best_split_class(data_split, y_split, minleaf, impurity, nclass):
     Ndim = shape(data_split)[1]
     IGall = zeros(Ndim)
     vall = zeros(Ndim)
-    for i in xrange(Ndim):
+    for i in range(Ndim):
         values = data_split[:, i]
         IGsplit, vsplit = gain(values, y_split, minleaf, impurity, nclass)
         IGall[i] = IGsplit
@@ -201,7 +201,7 @@ class Ctree():
             if forest == 'no':
                 myD = all_D
             if forest == 'yes':
-                myD = rn.sample(all_D, mstar)
+                myD = rn.sample(list(all_D), mstar)
             if len(unique(YD)) == 1: return YD
             #if len(unique(XD[:,0]))==1: return YD
             td, sp, tvar = best_split_class(XD[:, myD], YD, minleaf, impurity, nclass)
@@ -293,13 +293,13 @@ class Ctree():
         Leaf = self.leaves()
         Leaf_dim = array(self.leaves_dim())
         node_dict = {}
-        for il in xrange(len(Leaf)):
+        for il in range(len(Leaf)):
             Lnum = branch2num(Leaf[il])
             Lclass = int(round(mean(self.print_branch(Leaf[il]))))
             ldim = Leaf_dim[il]
-            for jl in xrange(len(Lnum) - 1):
+            for jl in range(len(Lnum) - 1):
                 n1 = Lnum[jl]
-                if not node_dict.has_key(n1):
+                if n1 not in node_dict:
                     n2 = Lnum[jl + 1]
                     node_dict[n1] = [n2]
                     node1 = 'node_' + str(n1)
@@ -394,7 +394,7 @@ class Rtree():
             if forest == 'no':
                 myD = all_D
             if forest == 'yes':
-                myD = rn.sample(all_D, mstar)
+                myD = rn.sample(list(all_D), mstar)
             if len(unique(YD)) == 1: return YD
             td, sp, tvar = best_split(XD[:, myD], YD, minleaf)
             if td == -1: return YD
@@ -508,12 +508,12 @@ class Rtree():
         Leaf = self.leaves()
         Leaf_dim = array(self.leaves_dim())
         node_dict = {}
-        for il in xrange(len(Leaf)):
+        for il in range(len(Leaf)):
             Lnum = branch2num(Leaf[il])
             ldim = Leaf_dim[il]
-            for jl in xrange(len(Lnum) - 1):
+            for jl in range(len(Lnum) - 1):
                 n1 = Lnum[jl]
-                if not node_dict.has_key(n1):
+                if n1 not in node_dict:
                     n2 = Lnum[jl + 1]
                     node_dict[n1] = [n2]
                     node1 = 'node_' + str(n1)

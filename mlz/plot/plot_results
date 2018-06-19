@@ -65,7 +65,7 @@ def onpick2(event):
         dd = hypot(dx, dy)
         indmin = dd.argmin()
         dataind = event.ind[indmin]
-        print dataind
+        print (dataind)
         current1.set_visible(True)
         current1.set_data(zx1[dataind], zy1[dataind])
         current2.set_visible(True)
@@ -476,11 +476,11 @@ def inbin(z1, z2, minz, maxz, Nbins):
 H1 = zeros((Nbins, Nbins))
 H2 = zeros((Nbins, Nbins))
 
-for j in xrange(len(w1)):
+for j in range(len(w1)):
     if isNaN(zx1[w1[j]]) or isNaN(zy1[w1[j]]): continue
     i1, i2 = inbin(zx1[w1[j]], zy1[w1[j]], minz, maxz, Nbins)
     H1[i2, i1] += 1.
-for j in xrange(len(w2)):
+for j in range(len(w2)):
     if isNaN(zx2[w2[j]]) or isNaN(zy2[w2[j]]): continue
     i1, i2 = inbin(zx2[w2[j]], zy2[w2[j]], minz, maxz, Nbins)
     H2[i2, i1] += 1.

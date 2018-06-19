@@ -41,8 +41,8 @@ NzBins           : 80                # Number of bins in z range (2 for Classifi
 NRandom          : 2                 # Number of random realizations (1 original data)
 NTrees           : 4                 # Number of trees or maps!  (total number is NRandom x NTrees)
 Natt             : 3                 # Number of attributes m* for TPZ or subsample for SOM
-OobError         : no                # Out-of-bag error?
-VarImportance    : no                # Perform variable importance ranking?
+OobError         : yes                # Out-of-bag error?
+VarImportance    : yes                # Perform variable importance ranking?
 #------------------------------------------------------
 #   TPZ
 #------------------------------------------------------

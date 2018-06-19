@@ -1,0 +1,77 @@
+#Input parameters for MLZ (Don't delete them)
+#Space between ":" and "value" is important
+#
+#            BLANK SPACE
+#                 |                  
+#                 | 
+#                 |
+# FILENAMES       V
+TrainFile        : DES.train     # Name of training file
+TestFile         : DES.test      # Name of test file
+FinalFileName    : DES           # Root of Final name
+#------------------------------------------------------
+#     PATHS
+#------------------------------------------------------
+Path_Train       : des_data/  # Path to train file
+Path_Test        : des_data/  # Path to test file
+Path_Output      : des_data/  # Path to results
+#------------------------------------------------------
+#     COLUMNS AND ATTRIBUTES
+#------------------------------------------------------
+#in columns names the column for error must be named same a the column with an e in front
+Columns          : zs,g,r,i,z,Y,eg,er,ei,ez,eY,g-r,r-i,i-z,z-Y,eg-r,er-i,ei-z,ez-Y        # Columns of training file
+Att              : g,r,i,z,Y,g-r,r-i,i-z,z-Y                                              # Attributes to use, try a subset!
+Columns_Test     : zs,g,r,i,z,Y,eg,er,ei,ez,eY,g-r,r-i,i-z,z-Y,eg-r,er-i,ei-z,ez-Y        # Columns for test, no need have a KetAtt column
+KeyAtt           : zs                                                                     #name of  the column to be predicted
+#------------------------------------------------------
+#     CODE STEPS
+#------------------------------------------------------
+CheckOnly        : no                # Check everything with small samples to test the codes
+PredictionMode   : TPZ               # TPZ/SOM/TPZ_C
+PredictionClass  : Reg               # Reg/Class
+#------------------------------------------------------
+#   REDSHIFT RELATED (OR FOR CLASSIFICATION)
+#------------------------------------------------------
+MinZ             : 0.01              # Min redshift (class label)
+MaxZ             : 1.8               # Max redshift (class label)
+NzBins           : 100               # Number of bins in z range (2 for Classification), Final output is double this value
+#------------------------------------------------------
+#   COMMON FOR TPZ/SOM
+#------------------------------------------------------
+NRandom          : 2                 # Number of random realizations (1 original data)
+NTrees           : 100                # Number of trees or maps!  (total number is NRandom x NTrees)
+Natt             : 3                 # Number of attributes m* for TPZ or subsample for SOM
+OobError         : yes               # Out-of-bag error?
+VarImportance    : yes               # Perform variable importance ranking?
+#------------------------------------------------------
+#   TPZ
+#------------------------------------------------------
+MinLeaf          : 5                 # Minimum number for terminal leaf
+ImpurityIndex    : entropy           # options (entropy/gini/classE) for Classification
+#------------------------------------------------------
+#   SOM
+#------------------------------------------------------
+Topology         : hex               # grid,hex,sphere
+Periodic         : yes               # periodic? yes/no
+Ntop             : 15                # map size (in the case fo sphere, npix=12*ntop*ntop , ntop: must be power of 2)
+Iterations       : 200               # number of iterations
+SomType          : online            # online/batch
+AlphaStart       : 0.9               # Alpha start
+AlphaEnd         : 0.5               # Alpha end
+ImportanceFile   : none              # path to importance file, write 'none' is not used
+#------------------------------------------------------
+#   Get PDFs
+#------------------------------------------------------
+SigmaFactor      : 3.                # Gaussian smoothing with kernel Sigma1*Resolution
+RmsFactor        : 0.02              # initial rms, can be modified using oob data
+WriteFits        : no                # yes, PDF file in fits format, no: numpy format
+MultipleFiles    : no                # Write a PDFs file per core instead of merging them (faster)
+#------------------------------------------------------
+#   SPARSE REPRESENTATION
+#------------------------------------------------------
+SparseRep        : no                # Sparse representation, it creates a fits file
+SparseDims       : 200,50,2          # Nmu, Nsigma, Nv (To create dictionary)
+NumberCoef       : 32001             # Integers to represent the coefficients
+NumberBases      : 20                # Number of fixed bases to use
+OriginalPdfFile  : yes               # Write the original PDFs also?
+#------------------------------------------------------

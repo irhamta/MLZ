@@ -105,7 +105,7 @@ def create_random_realizations(AT, F, N, keyatt):
     total = len(F)
     for key in AT.keys():
         if (key != keyatt): BigCat[key] = numpy.zeros((total, N))
-    for i in xrange(total):
+    for i in range(total):
         for k in BigCat.keys():
             sigg = F[i][AT[k]['eind']]
             sigg = max(0.001, sigg)
@@ -157,7 +157,7 @@ def bootstrap_index(N, SS):
     :rtype: int array
     """
     index = []
-    for i in xrange(N):
+    for i in range(N):
         index.append(random.randint(0, SS - 1))
     return numpy.array(index)
     # return stat.randint.rvs(0,SS,size=N)
@@ -285,10 +285,10 @@ class catalog():
         Creates oob data and separates it from the no-oob data for further tests
         :param float frac: Fraction of the data to be separated, taken from class Pars (default is 1/3)
         """
-        if not self.has_X() or not self.has_Y(): print 'ERROR2'
+        if not self.has_X() or not self.has_Y(): print ('ERROR2')
         if frac == 0.: frac = self.Pars.oobfraction
         self.noob = int(self.nobj * frac)
-        self.oob_index = random.sample(xrange(self.nobj), self.noob)
+        self.oob_index = random.sample(range(self.nobj), self.noob)
         index_all = numpy.arange(self.nobj)
         index_all[self.oob_index] = -1
         woob = numpy.where(index_all >= 0)[0]
@@ -304,7 +304,7 @@ class catalog():
         self.cat = copy.deepcopy(self.cat_or)
         if frac == 0.: frac = self.Pars.oobfraction
         self.noob = int(self.nobj * frac)
-        self.oob_index = random.sample(xrange(self.nobj), self.noob)
+        self.oob_index = random.sample(range(self.nobj), self.noob)
         index_all = numpy.arange(self.nobj)
         index_all[self.oob_index] = -1
         woob = numpy.where(index_all >= 0)[0]

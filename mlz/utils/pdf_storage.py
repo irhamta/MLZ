@@ -45,7 +45,7 @@ def sparse_basis(dictionary, query_vec, n_basis, tolerance=None):
             sla.solve_triangular(L[:n_active, :n_active], L[n_active, :n_active], lower=True, overwrite_b=True)
             v = linalg.norm(L[n_active, :n_active]) ** 2
             if 1 - v <= machine_eps:
-                print "Selected basis are dependent or normed are not unity"
+                print ("Selected basis are dependent or normed are not unity")
                 break
             L[n_active, n_active] = sqrt(1 - v)
         dictionary[:, [n_active, lam]] = dictionary[:, [lam, n_active]]
